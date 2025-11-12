@@ -288,6 +288,12 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             flashButton(btn);
         });
+        // Remove focus on touch devices after interaction
+        btn.addEventListener('touchend', function() {
+            if ('ontouchstart' in window) {
+                btn.blur();
+            }
+        });
     });
 
     // Add focus/blur handlers to detect tab navigation
@@ -307,6 +313,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('mousedown', function() {
         tabNavigationActive = false;
         // Remove all focus styles when mouse is used
+        focusableElements.forEach(function(elem) {
+            elem.blur();
+        });
+    });
+
+    // Additional touch handling for mobile devices
+    document.addEventListener('touchstart', function() {
+        tabNavigationActive = false;
         focusableElements.forEach(function(elem) {
             elem.blur();
         });

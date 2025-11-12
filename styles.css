@@ -52,13 +52,23 @@ body {
     width: 7ch;
 }
 .play-text:hover, .control-btn:hover, .repeat-btn:hover, .download-btn:hover, .random-btn:hover {
-    background-color: #00FF00;
-    color: black;
+    background-color: #00FF00 !important;
+    color: black !important;
 }
 .play-text:focus-visible, .control-btn:focus-visible, .repeat-btn:focus-visible, .download-btn:focus-visible, .random-btn:focus-visible {
     background-color: #00FF00;
     color: black;
     outline: none;
+}
+
+/* Hide focus on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .play-text:focus, .control-btn:focus, .repeat-btn:focus, .download-btn:focus, .random-btn:focus,
+    .credit-link:focus {
+        background-color: transparent;
+        color: #00FF00;
+        outline: none;
+    }
 }
 .play-text:active, .control-btn:active, .repeat-btn:active, .download-btn:active, .random-btn:active {
     transform: translateY(2px);
@@ -186,7 +196,7 @@ color: black;
         height: 100vh;
     }
     body {
-        transform: none;
+        transform: translateY(-20px);
         padding: 10px;
         box-sizing: border-box;
     }
