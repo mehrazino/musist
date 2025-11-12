@@ -9,6 +9,7 @@ html, body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    overscroll-behavior: contain;
 }
 
 body {
@@ -196,12 +197,13 @@ color: black;
     html, body {
         overflow: hidden;
         height: 100vh;
+        overscroll-behavior: auto; /* Allow pull-to-refresh on mobile */
     }
     body {
         transform: translateY(-20px);
         padding: 10px;
         box-sizing: border-box;
-        padding-bottom: 40px; /* Make room for footer */
+        padding-bottom: 50px; /* Make more room for footer */
     }
     .play-text {
         font-size: 2rem;
@@ -229,5 +231,7 @@ color: black;
         left: 0;
         right: 0;
         z-index: 10; /* Ensure it appears above content */
+        background-color: black;
+        color: white;
     }
 }
