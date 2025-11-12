@@ -70,6 +70,17 @@ body {
     .credit-link:focus {
         outline: none;
     }
+    /* Disable hover effects on touch devices */
+    .play-text:hover, .control-btn:hover, .repeat-btn:hover, .download-btn:hover, .random-btn:hover,
+    .credit-link:hover {
+        background-color: transparent !important;
+        color: #00FF00 !important;
+    }
+    /* Only show active state for toggle buttons on touch devices */
+    .repeat-btn.active, .random-btn.active {
+        background-color: #00FF00 !important;
+        color: black !important;
+    }
 }
 .play-text:active, .control-btn:active, .repeat-btn:active, .download-btn:active, .random-btn:active {
     transform: translateY(2px);
