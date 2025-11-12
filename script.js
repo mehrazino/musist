@@ -43,7 +43,7 @@ function togglePlay() {
 
 /* Update the track number display */
 function updateTrackNumber() {
-    document.querySelector('.track-number').textContent = (currentTrackIndex + 1).toString();
+    document.querySelector('.track-number').textContent = '[' + (currentTrackIndex + 1) + ']';
 }
 
 /* Generate a random track index, avoiding consecutive repeats */
@@ -209,41 +209,30 @@ document.addEventListener('keydown', function(event) {
         var playBtn = document.querySelector('.play-text');
         flashButton(playBtn);
         pressEffect(playBtn);
-        playBtn.focus(); // Move focus to play button
+        // Don't move focus for keyboard shortcuts, only for Tab navigation
         setTimeout(function() {
             togglePlay(); // Use existing togglePlay function
         }, 150);
-    } else if (event.code === 'ArrowRight' && !isRepeat) {
-        // Next track (disabled in repeat mode)
+    } else if (event.code === 'ArrowRight') {
+        // Next track (available even in repeat mode for manual control)
         event.preventDefault();
         var nextBtn = document.querySelector('.control-btn:nth-child(3)');
         flashButton(nextBtn);
         pressEffect(nextBtn);
+        // Don't move focus for keyboard shortcuts, only for Tab navigation
         setTimeout(function() {
-            nextBtn.focus();
             nextTrackManual();
         }, 150);
-    } else if (event.code === 'ArrowLeft' && !isRepeat) {
-        // Previous track (disabled in repeat mode)
+    } else if (event.code === 'ArrowLeft') {
+        // Previous track (available even in repeat mode for manual control)
         event.preventDefault();
         var prevBtn = document.querySelector('.control-btn:nth-child(1)');
         flashButton(prevBtn);
         pressEffect(prevBtn);
+        // Don't move focus for keyboard shortcuts, only for Tab navigation
         setTimeout(function() {
-            prevBtn.focus();
             prevTrack();
         }, 150);
-    } else if (event.code === 'Enter') {
-        // Handle Enter key on focused elements
-        var focusedElement = document.activeElement;
-        if (focusedElement && (focusedElement.tagName === 'BUTTON' || focusedElement.tagName === 'A')) {
-            event.preventDefault();
-            flashButton(focusedElement);
-            pressEffect(focusedElement);
-            setTimeout(function() {
-                focusedElement.click();
-            }, 150);
-        }
     }
 });
 
@@ -265,7 +254,8 @@ function flashButton(element) {
     } else {
         btn = element;
     }
-    if (btn) {
+    if (btn && !btn.classList.contains('flashing')) {
+        btn.classList.add('flashing');
         var originalBg = btn.style.backgroundColor;
         var originalColor = btn.style.color;
         btn.style.backgroundColor = '#00FF00';
@@ -273,6 +263,7 @@ function flashButton(element) {
         setTimeout(function() {
             btn.style.backgroundColor = originalBg;
             btn.style.color = originalColor;
+            btn.classList.remove('flashing');
         }, 150);
     }
 }
@@ -287,32 +278,33 @@ document.addEventListener('DOMContentLoaded', function() {
     buttons.forEach(function(btn) {
         btn.addEventListener('click', function() {
             flashButton(btn);
+            pressEffect(btn);
         });
-        // Remove focus on touch devices after interaction
+        // Remove focus and hover states on touch devices after interaction
         btn.addEventListener('touchend', function() {
             if ('ontouchstart' in window) {
                 btn.blur();
+                // Force remove any lingering hover/active states
+                btn.style.backgroundColor = '';
+                btn.style.color = '';
+                // Also reset any CSS class-based active states
+                btn.classList.remove('active');
             }
         });
     });
 
-    // Add focus/blur handlers to detect tab navigation
-    var focusableElements = document.querySelectorAll('button, a');
-    focusableElements.forEach(function(elem) {
-        elem.addEventListener('focus', function() {
-            if (!tabNavigationActive && !elem.matches(':hover')) {
-                tabNavigationActive = true;
-            }
-        });
-        elem.addEventListener('blur', function() {
-            // Keep focus styles until another element is focused or mouse is used
-        });
+    // Add tab key detection to activate focus navigation
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Tab') {
+            tabNavigationActive = true;
+        }
     });
 
-    // Reset tab navigation when mouse is used
+    // Reset tab navigation when mouse or touch is used
     document.addEventListener('mousedown', function() {
         tabNavigationActive = false;
         // Remove all focus styles when mouse is used
+        var focusableElements = document.querySelectorAll('button, a');
         focusableElements.forEach(function(elem) {
             elem.blur();
         });
@@ -321,9 +313,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Additional touch handling for mobile devices
     document.addEventListener('touchstart', function() {
         tabNavigationActive = false;
+        var focusableElements = document.querySelectorAll('button, a');
         focusableElements.forEach(function(elem) {
             elem.blur();
         });
+    });
+
+    // Handle Enter key on focused elements
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            var focusedElement = document.activeElement;
+            if (focusedElement && (focusedElement.tagName === 'BUTTON' || focusedElement.tagName === 'A')) {
+                event.preventDefault();
+                flashButton(focusedElement);
+                pressEffect(focusedElement);
+                setTimeout(function() {
+                    focusedElement.click();
+                }, 150);
+            }
+        }
     });
 });
 

@@ -18,7 +18,7 @@ body {
 .track-number {
     color: white;
     font-size: 2rem;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     font-family: 'Intel One Mono', monospace;
     font-weight: bold;
 }
@@ -51,22 +51,23 @@ body {
     font-weight: bold;
     width: 7ch;
 }
-.play-text:hover, .control-btn:hover, .repeat-btn:hover, .download-btn:hover, .random-btn:hover {
+.play-text:hover, .control-btn:hover {
+    background-color: #00FF00 !important;
+    color: black !important;
+}
+.repeat-btn:hover, .download-btn:hover, .random-btn:hover {
     background-color: #00FF00 !important;
     color: black !important;
 }
 .play-text:focus-visible, .control-btn:focus-visible, .repeat-btn:focus-visible, .download-btn:focus-visible, .random-btn:focus-visible {
-    background-color: #00FF00;
-    color: black;
-    outline: none;
+    outline: 4px solid #00FF00;
+    outline-offset: 2px;
 }
 
 /* Hide focus on touch devices */
 @media (hover: none) and (pointer: coarse) {
     .play-text:focus, .control-btn:focus, .repeat-btn:focus, .download-btn:focus, .random-btn:focus,
     .credit-link:focus {
-        background-color: transparent;
-        color: #00FF00;
         outline: none;
     }
 }
@@ -77,18 +78,18 @@ body {
 margin-top: 40px;
 }
 .repeat-btn {
-color: white;
-font-size: 2rem;
-background-color: transparent;
-border: none;
-cursor: pointer;
-padding: 0;
-font-family: 'Intel One Mono', monospace;
-font-weight: bold;
+    color: white;
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: 'Intel One Mono', monospace;
+    font-weight: bold;
 }
 .repeat-btn:hover {
-background-color: #00FF00;
-color: black;
+    background-color: #00FF00 !important;
+    color: black !important;
 }
 .repeat-btn.active {
 background-color: #00FF00;
@@ -109,8 +110,8 @@ color: black;
     margin-left: 20px;
 }
 .download-btn:hover {
-    background-color: #00FF00;
-    color: black;
+    background-color: #00FF00 !important;
+    color: black !important;
 }
 .download-btn:active {
     transform: translateY(2px);
@@ -127,8 +128,8 @@ color: black;
     margin-left: 20px;
 }
 .random-btn:hover {
-    background-color: #00FF00;
-    color: black;
+    background-color: #00FF00 !important;
+    color: black !important;
 }
 .random-btn.active {
     background-color: #00FF00;
@@ -196,7 +197,7 @@ color: black;
         height: 100vh;
     }
     body {
-        transform: translateY(-20px);
+        transform: translateY(-30px);
         padding: 10px;
         box-sizing: border-box;
     }
@@ -208,7 +209,7 @@ color: black;
     }
     .track-number {
         font-size: 1rem;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
     }
     .repeat-container {
         margin-top: 15px;
@@ -220,6 +221,10 @@ color: black;
     .footer {
         font-size: 0.6rem;
         padding: 5px;
-        transform: translateY(5px);
+        transform: translateY(15px);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
     }
 }
