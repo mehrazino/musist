@@ -5,6 +5,10 @@ html, body {
     height: 100%;
     font-family: 'Intel One Mono', monospace;
     font-weight: 300;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 body {
@@ -51,14 +55,6 @@ body {
     font-weight: bold;
     width: 7ch;
 }
-.play-text:hover, .control-btn:hover {
-    background-color: #00FF00 !important;
-    color: black !important;
-}
-.repeat-btn:hover, .download-btn:hover, .random-btn:hover {
-    background-color: #00FF00 !important;
-    color: black !important;
-}
 .play-text:focus-visible, .control-btn:focus-visible, .repeat-btn:focus-visible, .download-btn:focus-visible, .random-btn:focus-visible {
     outline: 4px solid #00FF00;
     outline-offset: 2px;
@@ -70,14 +66,11 @@ body {
     .credit-link:focus {
         outline: none;
     }
-    /* Disable hover effects on touch devices */
-    .play-text:hover, .control-btn:hover, .repeat-btn:hover, .download-btn:hover, .random-btn:hover,
-    .credit-link:hover {
-        background-color: transparent !important;
-        color: #00FF00 !important;
-    }
-    /* Only show active state for toggle buttons on touch devices */
-    .repeat-btn.active, .random-btn.active {
+}
+
+/* Hover styles only for devices that support hover (desktops) */
+@media (hover: hover) {
+    .play-text:hover, .control-btn:hover, .repeat-btn:hover, .download-btn:hover, .random-btn:hover {
         background-color: #00FF00 !important;
         color: black !important;
     }
@@ -98,10 +91,6 @@ margin-top: 40px;
     font-family: 'Intel One Mono', monospace;
     font-weight: bold;
 }
-.repeat-btn:hover {
-    background-color: #00FF00 !important;
-    color: black !important;
-}
 .repeat-btn.active {
 background-color: #00FF00;
 color: black;
@@ -120,10 +109,6 @@ color: black;
     font-weight: bold;
     margin-left: 20px;
 }
-.download-btn:hover {
-    background-color: #00FF00 !important;
-    color: black !important;
-}
 .download-btn:active {
     transform: translateY(2px);
 }
@@ -137,10 +122,6 @@ color: black;
     font-family: 'Intel One Mono', monospace;
     font-weight: bold;
     margin-left: 20px;
-}
-.random-btn:hover {
-    background-color: #00FF00 !important;
-    color: black !important;
 }
 .random-btn.active {
     background-color: #00FF00;
@@ -168,10 +149,19 @@ color: black;
     color: white;
     text-decoration: none;
 }
-.credit-link:hover, .credit-link:focus-visible {
+.credit-link:focus-visible {
     background-color: #00FF00;
     color: black;
     outline: none;
+}
+
+/* Hover styles only for devices that support hover */
+@media (hover: hover) {
+    .credit-link:hover {
+        background-color: #00FF00;
+        color: black;
+        outline: none;
+    }
 }
 
 /* Responsive Design */
@@ -208,9 +198,10 @@ color: black;
         height: 100vh;
     }
     body {
-        transform: translateY(-30px);
+        transform: translateY(-20px);
         padding: 10px;
         box-sizing: border-box;
+        padding-bottom: 40px; /* Make room for footer */
     }
     .play-text {
         font-size: 2rem;
@@ -233,9 +224,10 @@ color: black;
         font-size: 0.6rem;
         padding: 5px;
         transform: translateY(15px);
-        position: absolute;
+        position: fixed; /* Changed back to fixed for mobile */
         bottom: 0;
         left: 0;
         right: 0;
+        z-index: 10; /* Ensure it appears above content */
     }
 }
