@@ -287,8 +287,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Force remove any lingering hover/active states
                 btn.style.backgroundColor = '';
                 btn.style.color = '';
-                // Also reset any CSS class-based active states
-                btn.classList.remove('active');
+                // Also reset any CSS class-based active states, but only for non-toggle buttons
+                if (!btn.classList.contains('repeat-btn') && !btn.classList.contains('random-btn')) {
+                    btn.classList.remove('active');
+                }
             }
         });
     });
