@@ -1,0 +1,50 @@
+name: Update Playlist
+
+on:
+  push:
+    paths:
+      - 'local/**'
+  pull_request:
+    paths:
+      - 'local/**'
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Update playlist.txt
+      run: |
+        # List all audio files in local/ directory
+        find local/ -type f \( -iname "*.mp3" -o -iname "*.wav" -o -iname "*.flac" -o -iname "*.aac" -o -iname "*.ogg" -o -iname "*.m4a" \) | sort > temp_playlist.txt
+        
+        # Check if playlist.txt exists and compare
+        if [ -f playlist.txt ]; then
+          if ! cmp -s temp_playlist.txt playlist.txt; then
+            mv temp_playlist.txt playlist.txt
+            echo "playlist.txt updated"
+          else
+            rm temp_playlist.txt
+            echo "No changes needed"
+          fi
+        else
+          mv temp_playlist.txt playlist.txt
+          echo "playlist.txt created"
+        fi
+
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add playlist.txt
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Update playlist.txt with latest audio files"
+          git push
+        fi

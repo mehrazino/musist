@@ -1,0 +1,43 @@
+name: Remove Duplicate Audio Files
+
+on:
+  push:
+    paths:
+      - 'local/**'
+
+jobs:
+  remove-duplicates:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Remove duplicate files
+      run: |
+        cd local/
+        
+        # Find all audio files and check for duplicates based on MD5 hash
+        declare -A file_hashes
+        
+        while IFS= read -r -d '' file; do
+          hash=$(md5sum "$file" | cut -d' ' -f1)
+          if [[ ${file_hashes[$hash]} ]]; then
+            echo "Removing duplicate: $file (duplicate of ${file_hashes[$hash]})"
+            rm "$file"
+          else
+            file_hashes[$hash]=$file
+          fi
+        done < <(find . -type f \( -iname "*.mp3" -o -iname "*.wav" -o -iname "*.flac" -o -iname "*.aac" -o -iname "*.ogg" -o -iname "*.m4a" \) -print0)
+
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        if git diff --staged --quiet; then
+          echo "No duplicates found"
+        else
+          git commit -m "Remove duplicate audio files"
+          git push
+        fi

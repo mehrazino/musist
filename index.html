@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <meta name="description" content="A music player with playlist support, keyboard navigation, and accessibility features">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Intel+One+Mono&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <audio id="clickSound" src="click.wav" preload="auto"></audio>
+    <audio id="musicPlayer" preload="none"></audio>
+    <div class="track-number" aria-live="polite" aria-atomic="true">1</div>
+    <div class="controls" role="group" aria-label="Playback controls">
+        <button class="control-btn" onclick="prevTrack()" aria-label="Previous track">[prev]</button>
+        <button class="play-text" onclick="togglePlay()" aria-label="Play or pause">[play]</button>
+        <button class="control-btn" onclick="nextTrackManual()" aria-label="Next track">[next]</button>
+    </div>
+    <div class="repeat-container" role="group" aria-label="Additional controls">
+        <button class="repeat-btn" onclick="toggleRepeat()" aria-label="Toggle repeat mode" aria-pressed="false">[repeat]</button>
+        <button class="download-btn" onclick="downloadCurrentTrack()" aria-label="Download current track">[download]</button>
+        <button class="random-btn" onclick="toggleRandom()" aria-label="Toggle random mode" aria-pressed="false">[random]</button>
+    </div>
+    <footer class="footer">
+        <p>Assembled by <a href="https://github.com/mehrazino" target="_blank" class="credit-link" aria-label="Visit Mehraz's website">[Mehraz]</a></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+body {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Intel One Mono', monospace;
+    font-weight: 300;
+    transform: translateY(-40px);
+}
+.track-number {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    font-family: 'Intel One Mono', monospace;
+    font-weight: bold;
+}
+.controls {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.play-text {
+    color: #00FF00;
+    font-size: 4rem;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: 'Intel One Mono', monospace;
+    font-weight: bold;
+    width: 7ch;
+}
+.control-btn {
+    color: #00FF00;
+    font-size: 2rem;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: 'Intel One Mono', monospace;
+    font-weight: bold;
+    width: 7ch;
+}
+.play-text:hover, .control-btn:hover, .repeat-btn:hover, .download-btn:hover, .random-btn:hover {
+    background-color: #00FF00;
+    color: black;
+}
+.play-text:focus-visible, .control-btn:focus-visible, .repeat-btn:focus-visible, .download-btn:focus-visible, .random-btn:focus-visible {
+    background-color: #00FF00;
+    color: black;
+    outline: none;
+}
+.play-text:active, .control-btn:active, .repeat-btn:active, .download-btn:active, .random-btn:active {
+    transform: translateY(2px);
+}
+.repeat-container {
+margin-top: 40px;
+}
+.repeat-btn {
+color: white;
+font-size: 2rem;
+background-color: transparent;
+border: none;
+cursor: pointer;
+padding: 0;
+font-family: 'Intel One Mono', monospace;
+font-weight: bold;
+}
+.repeat-btn:hover {
+background-color: #00FF00;
+color: black;
+}
+.repeat-btn.active {
+background-color: #00FF00;
+color: black;
+}
+.repeat-btn:active {
+    transform: translateY(2px);
+}
+.download-btn {
+    color: white;
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: 'Intel One Mono', monospace;
+    font-weight: bold;
+    margin-left: 20px;
+}
+.download-btn:hover {
+    background-color: #00FF00;
+    color: black;
+}
+.download-btn:active {
+    transform: translateY(2px);
+}
+.random-btn {
+    color: white;
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: 'Intel One Mono', monospace;
+    font-weight: bold;
+    margin-left: 20px;
+}
+.random-btn:hover {
+    background-color: #00FF00;
+    color: black;
+}
+.random-btn.active {
+    background-color: #00FF00;
+    color: black;
+}
+.random-btn:active {
+    transform: translateY(2px);
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 10px;
+    font-size: 1rem;
+    color: white;
+    font-family: 'Intel One Mono', monospace;
+    font-weight: normal;
+    transform: translateY(40px);
+}
+.credit-link {
+    color: white;
+    text-decoration: none;
+}
+.credit-link:hover, .credit-link:focus-visible {
+    background-color: #00FF00;
+    color: black;
+    outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        transform: translateY(-20px);
+    }
+    .play-text {
+        font-size: 3rem;
+    }
+    .control-btn {
+        font-size: 1.5rem;
+    }
+    .track-number {
+        font-size: 1.5rem;
+    }
+    .repeat-container {
+        margin-top: 30px;
+        gap: 15px;
+    }
+    .repeat-btn, .download-btn, .random-btn {
+        font-size: 1.5rem;
+    }
+    .footer {
+        font-size: 0.8rem;
+        transform: translateY(20px);
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        transform: none;
+    }
+    .play-text {
+        font-size: 2.5rem;
+    }
+    .control-btn {
+        font-size: 1.3rem;
+    }
+    .track-number {
+        font-size: 1.3rem;
+        margin-bottom: 60px;
+    }
+    .repeat-container {
+        margin-top: 25px;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .repeat-btn, .download-btn, .random-btn {
+        font-size: 1.3rem;
+        margin: 5px;
+    }
+    .footer {
+        font-size: 0.7rem;
+        padding: 5px;
+        transform: translateY(5px);
+    }
+}

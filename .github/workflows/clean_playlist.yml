@@ -1,0 +1,35 @@
+name: Clean Playlist Duplicates
+
+on:
+  push:
+    paths:
+      - 'playlist.txt'
+
+jobs:
+  clean-playlist:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Clean playlist.txt duplicates
+      run: |
+        if [ -f playlist.txt ]; then
+          # Remove duplicates while preserving order
+          awk '!seen[$0]++' playlist.txt > temp_playlist.txt
+          mv temp_playlist.txt playlist.txt
+          echo "Duplicates removed from playlist.txt"
+        fi
+
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add playlist.txt
+        if git diff --staged --quiet; then
+          echo "No duplicates found in playlist.txt"
+        else
+          git commit -m "Remove duplicate entries from playlist.txt"
+          git push
+        fi
