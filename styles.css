@@ -9,7 +9,6 @@ html, body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    overscroll-behavior: contain;
 }
 
 body {
@@ -197,13 +196,13 @@ color: black;
     html, body {
         overflow: hidden;
         height: 100vh;
-        overscroll-behavior: auto; /* Allow pull-to-refresh on mobile */
+        overscroll-behavior-y: contain;
     }
     body {
         transform: translateY(-20px);
         padding: 10px;
         box-sizing: border-box;
-        padding-bottom: 50px; /* Make more room for footer */
+        padding-bottom: 50px; /* Increase padding for footer */
     }
     .play-text {
         font-size: 2rem;
@@ -224,14 +223,14 @@ color: black;
     }
     .footer {
         font-size: 0.6rem;
-        padding: 5px;
-        transform: translateY(15px);
-        position: fixed; /* Changed back to fixed for mobile */
+        padding: 8px;
+        transform: translateY(10px);
+        position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        z-index: 10; /* Ensure it appears above content */
-        background-color: black;
-        color: white;
+        z-index: 1000; /* Higher z-index */
+        background-color: black !important;
+        display: block !important;
     }
 }
